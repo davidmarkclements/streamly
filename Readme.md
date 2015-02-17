@@ -83,7 +83,6 @@ iterable object.
 ### `streamly.thru(Function) => Function`
 
 ```javascript
-var streamly = require('./')
 streamly.src(count)
 function * count() { yield '1'; yield '2'; yield '3'; }
 
