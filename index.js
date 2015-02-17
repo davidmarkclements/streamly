@@ -34,7 +34,8 @@ function src(g) {
   }
 
   if (g instanceof GeneratorFunction) {
-    return extend(g.prototype, r);
+    extend(g.prototype, r);
+    return g;
   }
 }
 

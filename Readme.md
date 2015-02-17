@@ -49,19 +49,56 @@ src('should be upper')
 
 ## API
 
-### `streamly(...)`
+### `streamly(...) => Array`
+
+```javascript
+streamly(myFunc, myGen, myGen2(), myAsyncFunc)
+```
 
 Pass in both Generators and Functions as arguments,
 the `streamly` function will delegate to `src` or `thru`
-accordingly.
+accordingly. 
 
-### `streamly.src(Generator)`
+Returns an array of the now-decorated inputs.
+
+### `streamly.src(Generator) => Generator`
+
+```javascript
+streamly
+  .src(function * () { yield 'inline is fine'; })()
+  .pipe(process.stdout)
+```
 
 Decorates a `GeneratorFunction`, or the iterable object
 which a generator returns, with `Readable` stream
 capabilities.
 
-### `streamly.thru(Function)`
+Returns the input, after decoration has occurred.
+
+The result of `streamly.src` must be called before 
+a stream is instantiated, unless the argument is an 
+iterable object.
+
+
+### `streamly.thru(Function) => Function`
+
+```javascript
+var streamly = require('./')
+streamly.src(count)
+function * count() { yield '1'; yield '2'; yield '3'; }
+
+streamly.thru(wait)
+function wait(n, cb) { 
+  setTimeout(function () { 
+    cb(null, 'waited ' + n + '\n')
+  }, n)
+}
+
+count()
+  .pipe(streamly.thru(function (n) { return n*100+''; }))
+  .pipe(wait)
+  .pipe(process.stdout) 
+```
 
 Decorates a `Function` with `Transform` stream capabilities.
 
@@ -75,6 +112,8 @@ stream is considered to be asynchonous. That is, the
 values are passed onto the next stream via the second
 parameter of the function, by calling it with the
 signature `cb(err, value)`.
+
+Returns the input, after decoration has occurred.
 
 
 ## Sponsorship
