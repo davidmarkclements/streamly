@@ -1,0 +1,18 @@
+{
+  "name": "streamly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "event-stream": "^3.2.2",
+    "extend": "^2.0.0",
+    "nvm": "^0.0.3",
+    "through2": "^0.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "David Mark Clements",
+  "license": "MIT"
+}
