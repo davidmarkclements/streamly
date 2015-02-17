@@ -7,15 +7,21 @@ Imagine a world where:
 
 Streamly is that world. 
 
+## Method
+
+Streamly doesn't touch native global prototypes, it's safe.
+It extends an individual function or generator instance with
+a stream instance, leaving native stuff intact and untouched.
+
 ## Compatibility
 
 Streamly detects generator support, if the environment doesn't
 support generators, then you still get function-stream support.
 
-
 ## Example
 
 ```javascript
+var streamly = require('streamly');
 streamly(upper, asyncLower, src);
 
 function * src(s) {
@@ -51,10 +57,9 @@ accordingly.
 
 ### `streamly.src(Generator)`
 
-Decorates a `GeneratorFunction`, or the iterable
-which the generator returns, with `Readable` stream
+Decorates a `GeneratorFunction`, or the iterable object
+which a generator returns, with `Readable` stream
 capabilities.
-
 
 ### `streamly.thru(Function)`
 
@@ -71,9 +76,8 @@ values are passed onto the next stream via the second
 parameter of the function, by calling it with the
 signature `cb(err, value)`.
 
-## Kudos
 
-### Sponsorship
+## Sponsorship
 
 * Sponsored by nearForm
 
